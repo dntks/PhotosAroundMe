@@ -7,16 +7,28 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 fun PhotoList(
-    uiState: OverviewUiState,
+    uiState: PhotoListUiState,
     onPhotoItemClick: (PhotoItem) -> Unit,
 ) {
     val listState = rememberLazyListState()
     val items = uiState.items
+    LaunchedEffect(items) {
+        snapshotFlow { listState.firstVisibleItemIndex }
+            .collect {
+                // Scroll to the top if a new item is added.
+                // (But only if user is scrolled to the top already.)
+                if (it <= 1) {
+                    listState.scrollToItem(0)
+                }
+            }
+    }
     LazyColumn(
         state = listState,
         modifier = Modifier

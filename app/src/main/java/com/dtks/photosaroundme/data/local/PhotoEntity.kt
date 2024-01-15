@@ -13,7 +13,18 @@ data class PhotoEntity(
     val secret: String,
     val server: String,
     val title: String,
-){
-    constructor(photo: PhotoItem) : this(photo.id, photo.owner, photo.secret, photo.server, photo.title)
+    val latitude: Double,
+    val longitude: Double,
+    val createdTime: Long? = null
+) {
+    constructor(photo: PhotoItem) : this(
+        photo.id,
+        photo.owner,
+        photo.secret,
+        photo.server,
+        photo.title,
+        photo.coordinates.latitude,
+        photo.coordinates.longitude
+    )
 
 }

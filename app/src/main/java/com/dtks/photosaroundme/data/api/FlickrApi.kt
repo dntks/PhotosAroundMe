@@ -11,8 +11,12 @@ interface FlickrApi {
         noCallback: Int = 1,
         @Query("method")
         method: String = "flickr.photos.search",
+        @Query("per_page")
+        itemsPerPage: Int = 50,
         @Query("format")
         format: String = "json",
+        @Query("radius_units")
+        radius: Double = 1.0,
         @Query("lat")
         latitude: Double,
         @Query("lon")

@@ -1,7 +1,7 @@
 package com.dtks.photosaroundme.ui.overview
 
 
-data class OverviewUiState(
+data class PhotoListUiState(
     val userMessage: Int? = null,
     val isEmpty: Boolean = false,
     val isLoading: Boolean = false,

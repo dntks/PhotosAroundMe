@@ -1,5 +1,6 @@
 package com.dtks.photosaroundme.ui.overview
 
+import com.dtks.photosaroundme.data.Coordinates
 import com.dtks.photosaroundme.data.local.PhotoEntity
 import com.dtks.photosaroundme.data.model.Photo
 
@@ -9,11 +10,30 @@ data class PhotoItem(
     val secret: String,
     val server: String,
     val title: String,
-){
-    constructor(photo: Photo) : this(photo.id, photo.owner, photo.secret, photo.server, photo.title)
-    constructor(photo: PhotoEntity) : this(photo.id, photo.owner, photo.secret, photo.server, photo.title)
+    val coordinates: Coordinates,
+    val createdTime: Long? = null
+) {
 
-    fun createImageUrl() : String{
+    constructor(photo: Photo, coordinates: Coordinates) : this(
+        photo.id,
+        photo.owner,
+        photo.secret,
+        photo.server,
+        photo.title,
+        coordinates
+    )
+
+    constructor(photo: PhotoEntity) : this(
+        photo.id,
+        photo.owner,
+        photo.secret,
+        photo.server,
+        photo.title,
+        Coordinates(photo.latitude, photo.longitude),
+        photo.createdTime
+    )
+
+    fun createImageUrl(): String {
         return BASE_URL + "${server}/${id}_${secret}.jpg"
     }
 

@@ -7,12 +7,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.material3.MaterialTheme
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dtks.photosaroundme.location.LocationForegroundService
 import com.dtks.photosaroundme.ui.overview.PhotoListScreen
+import com.dtks.photosaroundme.ui.overview.PhotoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +23,7 @@ class MainActivity : ComponentActivity() {
     private val BACKGROUND_LOCATION_PERMISSION_REQUEST_CODE = 456
     private val LOCATION_PERMISSION_REQUEST_CODE = 123
 
+    private val photoViewModel: PhotoViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -35,22 +38,16 @@ class MainActivity : ComponentActivity() {
                                 checkAndRequestLocationPermissions()
                             }
                         } else{
+                            photoViewModel.setStarted(false)
                             stopLocationService()
                         }
                     },
                     onPhotoItemClick = {
 
-                    }
+                    },
                 )
-//                QuickMuseumNavGraph()
             }
         }
-//        val receiver = ComponentName(this, BootReceiver::class.java)
-//        packageManager.setComponentEnabledSetting(
-//            receiver,
-//            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//            PackageManager.DONT_KILL_APP
-//        )
 
     }
 
@@ -90,7 +87,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     startLocationService()
                 } else {
-                    // Handle the case where the user denies the foreground service permission
+                    locationPermissionDenied()
                 }
             }
             LOCATION_PERMISSION_REQUEST_CODE -> {
@@ -100,10 +97,16 @@ class MainActivity : ComponentActivity() {
                 ) {
                     checkAndRequestLocationPermissions()
                 } else {
-                    // Handle the case where the user denies the location permission
+                    locationPermissionDenied()
                 }
             }
         }
+    }
+
+    private fun locationPermissionDenied() {
+        photoViewModel.setErrorMessage(R.string.app_requires_location)
+        photoViewModel.setStarted(false)
+
     }
 
     private fun checkAndRequestLocationPermissions() {
@@ -151,11 +154,17 @@ class MainActivity : ComponentActivity() {
             }
             shouldShowRequestPermissionRationale(permission) -> {
                 // permission denied permanently
+                locationPermissionDeniedPermanently()
             }
             else -> {
                 requestNotificationPermission.launch(permission)
             }
         }
+    }
+
+    private fun locationPermissionDeniedPermanently() {
+        photoViewModel.setErrorMessage(R.string.permenant_denied_location_error)
+        photoViewModel.setStarted(false)
     }
 
     private val requestNotificationPermission =
@@ -167,6 +176,7 @@ class MainActivity : ComponentActivity() {
         }
 
     private fun startLocationService() {
+        photoViewModel.setStarted(true)
         val serviceIntent = Intent(this, LocationForegroundService::class.java)
         startService(serviceIntent)
     }

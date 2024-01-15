@@ -28,7 +28,9 @@ fun PhotoListScreen(
     viewModel: PhotoViewModel = hiltViewModel(),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    val uiState by viewModel.updateState.collectAsStateWithLifecycle()
+    val uiState by viewModel.photosState.collectAsStateWithLifecycle()
+    val error by viewModel.errorMessageFlow.collectAsStateWithLifecycle()
+
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = modifier.fillMaxSize(),
@@ -49,19 +51,34 @@ fun PhotoListScreen(
                 empty = uiState.isEmpty,
                 loading = uiState.isLoading,
                 emptyContent = {
-                    EmptyContent(R.string.no_art_found)
+                    EmptyContent(R.string.no_phptos_found)
+                },
+                noInternetContent = {
+                    EmptyContent(R.string.no_internet_connection)
                 }
             ) {
                 PhotoList(uiState, onPhotoItemClick)
             }
 
             uiState.userMessage?.let { userMessage ->
-                val snackbarText = stringResource(userMessage)
-                LaunchedEffect(viewModel, userMessage, snackbarText) {
-                    snackbarHostState.showSnackbar(snackbarText)
-                    viewModel.snackbarMessageShown()
-                }
+                showError(userMessage, viewModel, snackbarHostState)
+            }
+            error?.let { userMessage ->
+                showError(userMessage, viewModel, snackbarHostState)
             }
         }
+    }
+}
+
+@Composable
+private fun showError(
+    userMessage: Int,
+    viewModel: PhotoViewModel,
+    snackbarHostState: SnackbarHostState
+) {
+    val snackbarText = stringResource(userMessage)
+    LaunchedEffect(viewModel, userMessage, snackbarText) {
+        snackbarHostState.showSnackbar(snackbarText)
+        viewModel.snackbarMessageShown()
     }
 }

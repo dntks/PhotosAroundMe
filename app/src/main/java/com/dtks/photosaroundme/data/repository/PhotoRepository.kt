@@ -24,7 +24,7 @@ class PhotoRepository @Inject constructor(
         return withContext(dispatcher) {
             val searchPhotos = remoteDataSource.searchPhotos(searchRequest.coordinates)
             searchPhotos.photos.photo.randomOrNull()?.let {
-                PhotoItem(it)
+                PhotoItem(it, searchRequest.coordinates)
             }
         }
     }
@@ -33,7 +33,7 @@ class PhotoRepository @Inject constructor(
     }
 
     suspend fun savePhoto(photoItem: PhotoItem) {
-        localDataSource.upsert(PhotoEntity(photoItem))
+        localDataSource.insertWithTimestamp(PhotoEntity(photoItem))
     }
 
     fun getPhotoFlow(): Flow<List<PhotoItem>> {

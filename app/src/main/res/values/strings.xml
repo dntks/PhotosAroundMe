@@ -6,7 +6,10 @@
     <string name="loading_art_error">An error occurred while loading the art.</string>
     <string name="menu_back">back</string>
     <string name="loading">Loading…</string>
-    <string name="no_art_found">No results found. Please check your internet connection and try again later.</string>
+    <string name="no_phptos_found">No photos found. Try to start the service!</string>
     <string name="image_background_label">image background\n</string>
     <string name="image_background_transition">loading image shimmer\n</string>
+    <string name="permenant_denied_location_error">Enable location in settings to use the app!</string>
+    <string name="app_requires_location">Please enable location to be able to use this app!</string>
+    <string name="no_internet_connection">The app needs internet to work. Please check your internet connection and try again!</string>
 </resources>

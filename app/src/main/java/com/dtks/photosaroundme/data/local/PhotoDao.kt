@@ -27,53 +27,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PhotoDao {
 
-    /**
-     * Observes list of tasks.
-     *
-     * @return all tasks.
-     */
-    @Query("SELECT * FROM photo")
+    @Query("SELECT * FROM photo ORDER BY createdTime DESC")
     fun observeAll(): Flow<List<PhotoEntity>>
 
-    /**
-     * Observes a single task.
-     *
-     * @param photoId the task id.
-     * @return the task with taskId.
-     */
-    @Query("SELECT * FROM photo WHERE id = :photoId")
-    fun observeById(photoId: String): Flow<PhotoEntity>
-
-    /**
-     * Select all tasks from the tasks table.
-     *
-     * @return all tasks.
-     */
-    @Query("SELECT * FROM photo")
-    suspend fun getAll(): List<PhotoEntity>
-
-    /**
-     * Select a task by id.
-     *
-     * @param photoId the task id.
-     * @return the task with taskId.
-     */
-    @Query("SELECT * FROM photo WHERE id = :photoId")
-    suspend fun getById(photoId: String): PhotoEntity?
-
-    /**
-     * Insert or update a task in the database. If a task already exists, replace it.
-     *
-     * @param task the task to be inserted or updated.
-     */
     @Upsert
-    suspend fun upsert(task: PhotoEntity)
-
-    /**
-     * Insert or update tasks in the database. If a task already exists, replace it.
-     *
-     * @param tasks the tasks to be inserted or updated.
-     */
-    @Upsert
-    suspend fun upsertAll(tasks: List<PhotoEntity>)
+    suspend fun upsert(photoEntity: PhotoEntity)
+    suspend fun insertWithTimestamp(photoEntity: PhotoEntity) {
+        upsert(photoEntity.copy(
+            createdTime = System.currentTimeMillis()
+        ))
+    }
 }

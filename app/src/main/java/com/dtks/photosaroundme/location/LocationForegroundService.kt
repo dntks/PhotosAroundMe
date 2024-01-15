@@ -100,7 +100,7 @@ class LocationForegroundService : Service() {
     private fun requestLocationUpdates() {
         val locationRequest = LocationRequest.Builder(15 * 1000) // Interval in milliseconds
             .setPriority(Priority.PRIORITY_LOW_POWER) // Set priority separately
-//            .setMinUpdateDistanceMeters(UPDATE_DISTANCE_METERS)
+            .setMinUpdateDistanceMeters(UPDATE_DISTANCE_METERS)
             .build()
 
 
