@@ -1,6 +1,6 @@
-package com.dtks.photosaroundme.ui.overview
+package com.dtks.photosaroundme.ui.photolist
 
-import com.dtks.photosaroundme.ui.overview.model.PhotoItem
+import com.dtks.photosaroundme.ui.photolist.model.PhotoItem
 
 
 data class PhotoListUiState(

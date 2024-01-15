@@ -2,7 +2,7 @@ package com.dtks.photosaroundme.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.dtks.photosaroundme.ui.overview.model.PhotoItem
+import com.dtks.photosaroundme.ui.photolist.model.PhotoItem
 
 @Entity(
     tableName = "photo"

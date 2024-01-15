@@ -1,4 +1,4 @@
-package com.dtks.photosaroundme.ui.overview.model
+package com.dtks.photosaroundme.ui.photolist.model
 
 import com.dtks.photosaroundme.data.apimodel.Photo
 import com.dtks.photosaroundme.data.local.PhotoEntity

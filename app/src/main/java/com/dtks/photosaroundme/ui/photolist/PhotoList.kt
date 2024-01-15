@@ -1,4 +1,4 @@
-package com.dtks.photosaroundme.ui.overview
+package com.dtks.photosaroundme.ui.photolist
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -11,7 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.dtks.photosaroundme.ui.overview.model.PhotoItem
+import com.dtks.photosaroundme.ui.photolist.model.PhotoItem
 import com.dtks.photosaroundme.utils.Coordinates
 
 @Composable

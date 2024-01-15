@@ -1,4 +1,4 @@
-package com.dtks.photosaroundme.ui.overview
+package com.dtks.photosaroundme.ui.photolist
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dtks.photosaroundme.R
 import com.dtks.photosaroundme.ui.EmptyContent
 import com.dtks.photosaroundme.ui.loading.LoadingContent
-import com.dtks.photosaroundme.ui.overview.model.PhotoItem
+import com.dtks.photosaroundme.ui.photolist.model.PhotoItem
 import com.dtks.photosaroundme.viewmodel.PhotoViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,7 +30,7 @@ fun PhotoListScreen(
     viewModel: PhotoViewModel = hiltViewModel(),
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    val uiState by viewModel.photosState.collectAsStateWithLifecycle()
+    val photoListState by viewModel.photoListState.collectAsStateWithLifecycle()
     val error by viewModel.errorMessageFlow.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -50,8 +50,8 @@ fun PhotoListScreen(
                 .padding(paddingValues)
         ) {
             LoadingContent(
-                empty = uiState.isEmpty,
-                loading = uiState.isLoading,
+                empty = photoListState.isEmpty,
+                loading = photoListState.isLoading,
                 emptyContent = {
                     EmptyContent(R.string.no_phptos_found)
                 },
@@ -59,10 +59,10 @@ fun PhotoListScreen(
                     EmptyContent(R.string.no_internet_connection)
                 }
             ) {
-                PhotoList(uiState, onPhotoItemClick)
+                PhotoList(photoListState, onPhotoItemClick)
             }
 
-            uiState.userMessage?.let { userMessage ->
+            photoListState.userMessage?.let { userMessage ->
                 showError(userMessage, viewModel, snackbarHostState)
             }
             error?.let { userMessage ->

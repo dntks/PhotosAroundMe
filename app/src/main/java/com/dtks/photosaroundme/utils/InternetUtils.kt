@@ -74,19 +74,6 @@ private fun Context.observeConnectivityAsFlow() =
     }
         .distinctUntilChanged()
         .flowOn(Dispatchers.IO)
-private data class NetworkState(
-    /** Determines if the network is connected. */
-    val isConnected: Boolean,
-
-    /** Determines if the network is validated - has a working Internet connection. */
-    val isValidated: Boolean,
-
-    /** Determines if the network is metered. */
-    val isMetered: Boolean,
-
-    /** Determines if the network is not roaming. */
-    val isNotRoaming: Boolean
-)
 
 sealed class ConnectionState {
     object Available : ConnectionState()

@@ -1,4 +1,4 @@
-package com.dtks.photosaroundme.ui.overview
+package com.dtks.photosaroundme.ui.photolist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth

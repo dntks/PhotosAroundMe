@@ -1,4 +1,4 @@
-package com.dtks.photosaroundme.ui.overview
+package com.dtks.photosaroundme.ui.photolist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.SubcomposeAsyncImage
 import com.dtks.photosaroundme.R
 import com.dtks.photosaroundme.ui.loading.ImageLoading
-import com.dtks.photosaroundme.ui.overview.model.PhotoItem
+import com.dtks.photosaroundme.ui.photolist.model.PhotoItem
 import com.dtks.photosaroundme.utils.Coordinates
 
 @Composable
