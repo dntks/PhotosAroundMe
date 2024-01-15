@@ -18,6 +18,7 @@ package com.dtks.photosaroundme.di
 
 import android.content.Context
 import androidx.room.Room
+import com.dtks.photosaroundme.data.local.FailedPhotoDao
 import com.dtks.photosaroundme.data.local.PhotoDao
 import com.dtks.photosaroundme.data.local.PhotoDatabase
 import dagger.Module
@@ -43,5 +44,7 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideTaskDao(database: PhotoDatabase): PhotoDao = database.photoDao()
+    fun providePhotoDao(database: PhotoDatabase): PhotoDao = database.photoDao()
+    @Provides
+    fun provideFailedPhotoDao(database: PhotoDatabase): FailedPhotoDao = database.failedPhotoDao()
 }

@@ -114,7 +114,6 @@ class LocationForegroundService : Service() {
         ) {
             return
         }
-        Log.e("Location", "asked for location")
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 

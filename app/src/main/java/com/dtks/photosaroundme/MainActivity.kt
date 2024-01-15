@@ -14,7 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dtks.photosaroundme.location.LocationForegroundService
 import com.dtks.photosaroundme.ui.overview.PhotoListScreen
-import com.dtks.photosaroundme.ui.overview.PhotoViewModel
+import com.dtks.photosaroundme.viewmodel.PhotoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

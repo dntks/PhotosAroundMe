@@ -7,7 +7,7 @@ import com.dtks.photosaroundme.data.local.FailedPhotoEntity
 import com.dtks.photosaroundme.data.local.PhotoDao
 import com.dtks.photosaroundme.data.local.PhotoEntity
 import com.dtks.photosaroundme.di.DefaultDispatcher
-import com.dtks.photosaroundme.ui.overview.PhotoItem
+import com.dtks.photosaroundme.ui.overview.model.PhotoItem
 import com.dtks.photosaroundme.utils.Coordinates
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

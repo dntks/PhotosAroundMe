@@ -10,6 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.dtks.photosaroundme.ui.overview.model.PhotoItem
+import com.dtks.photosaroundme.utils.Coordinates
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
@@ -43,3 +46,58 @@ fun PhotoList(
         }
     }
 }
+
+@Preview
+@Composable
+fun PreviewEmptyPhotoList() {
+    PhotoList(PhotoListUiState(
+        isEmpty = true,
+        isLoading = false
+    )
+    ){
+
+    }
+}
+@Preview
+@Composable
+fun PreviewLoadingPhotoList() {
+    PhotoList(PhotoListUiState(
+        isEmpty = false,
+        isLoading = true
+    )
+    ){
+
+    }
+}
+@Preview
+@Composable
+fun PreviewTwoItemsPhotoList() {
+    PhotoList(
+        previewPhotoListUiStateWithTwoItems()
+    ){
+
+    }
+}
+
+@Composable
+private fun previewPhotoListUiStateWithTwoItems() = PhotoListUiState(
+    isEmpty = false,
+    isLoading = false,
+    items = listOf(
+        PhotoItem(
+            id = "Jim",
+            title = "Regional manager",
+            owner = "Ricky Gervais",
+            server = "666",
+            secret = "s4cr4t",
+            coordinates = Coordinates(52.3676, 4.9041)
+        ), PhotoItem(
+            id = "Dwight",
+            title = "Assistant to the Regional manager",
+            owner = "Ricky Gervais",
+            server = "666",
+            secret = "s4cr4t",
+            coordinates = Coordinates(42.3676, 4.9041)
+        )
+    )
+)

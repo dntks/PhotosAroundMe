@@ -18,6 +18,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dtks.photosaroundme.R
 import com.dtks.photosaroundme.ui.EmptyContent
 import com.dtks.photosaroundme.ui.loading.LoadingContent
+import com.dtks.photosaroundme.ui.overview.model.PhotoItem
+import com.dtks.photosaroundme.viewmodel.PhotoViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -2,14 +2,11 @@ package com.dtks.photosaroundme.ui.overview
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,9 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.SubcomposeAsyncImage
 import com.dtks.photosaroundme.R
 import com.dtks.photosaroundme.ui.loading.ImageLoading
+import com.dtks.photosaroundme.ui.overview.model.PhotoItem
 import com.dtks.photosaroundme.utils.Coordinates
-import java.text.SimpleDateFormat
-import java.util.Date
 
 @Composable
 fun PhotoCard(
@@ -35,7 +31,6 @@ fun PhotoCard(
             horizontal = dimensionResource(id = R.dimen.list_item_padding),
             vertical = dimensionResource(id = R.dimen.list_item_padding),
         )
-//            .background(color = MaterialTheme.colorScheme.surface)
         .clickable { onClick(photoItem) }) {
         Box(
             modifier = Modifier
@@ -60,44 +55,6 @@ fun PhotoCard(
                 contentDescription = photoItem.title,
                 contentScale = ContentScale.FillHeight
             )
-
-            Column {
-                Text(
-                    text = photoItem.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.surfaceTint,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            dimensionResource(id = R.dimen.horizontal_margin)
-                        )
-                )
-                Text(
-                    text = photoItem.coordinates.toString(),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.surfaceTint,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            dimensionResource(id = R.dimen.horizontal_margin)
-                        )
-                )
-                photoItem.createdTime?.let {
-
-                    val sdf = SimpleDateFormat("MMM dd,yyyy HH:mm")
-                    val resultdate = Date(it)
-                    Text(
-                        text = sdf.format(resultdate),
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.surfaceTint,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            dimensionResource(id = R.dimen.horizontal_margin)
-                        )
-                    )
-                }
-            }
         }
     }
 }
