@@ -1,8 +1,8 @@
 package com.dtks.photosaroundme.ui.overview
 
-import com.dtks.photosaroundme.data.Coordinates
+import com.dtks.photosaroundme.data.apimodel.Photo
 import com.dtks.photosaroundme.data.local.PhotoEntity
-import com.dtks.photosaroundme.data.model.Photo
+import com.dtks.photosaroundme.utils.Coordinates
 
 data class PhotoItem(
     val id: String,

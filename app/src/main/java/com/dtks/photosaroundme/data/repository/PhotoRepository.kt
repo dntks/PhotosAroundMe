@@ -1,11 +1,14 @@
 package com.dtks.photosaroundme.data.repository
 
 import com.dtks.photosaroundme.data.RemoteDataSource
+import com.dtks.photosaroundme.data.apimodel.SearchRequest
+import com.dtks.photosaroundme.data.local.FailedPhotoDao
+import com.dtks.photosaroundme.data.local.FailedPhotoEntity
 import com.dtks.photosaroundme.data.local.PhotoDao
 import com.dtks.photosaroundme.data.local.PhotoEntity
-import com.dtks.photosaroundme.data.model.SearchRequest
 import com.dtks.photosaroundme.di.DefaultDispatcher
 import com.dtks.photosaroundme.ui.overview.PhotoItem
+import com.dtks.photosaroundme.utils.Coordinates
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,7 +20,8 @@ import javax.inject.Singleton
 @Singleton
 class PhotoRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: PhotoDao,
+    private val photoDataSource: PhotoDao,
+    private val failedPhotoDao: FailedPhotoDao,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
 ){
     suspend fun getRandomPhotoAt(searchRequest: SearchRequest): PhotoItem? {
@@ -33,11 +37,19 @@ class PhotoRepository @Inject constructor(
     }
 
     suspend fun savePhoto(photoItem: PhotoItem) {
-        localDataSource.insertWithTimestamp(PhotoEntity(photoItem))
+        photoDataSource.insertWithTimestamp(PhotoEntity(photoItem))
+    }
+
+    suspend fun saveFailedPhoto(coordinates: Coordinates, cause: String) {
+        failedPhotoDao.insertWithTimestamp(FailedPhotoEntity(
+            latitude = coordinates.latitude,
+            longitude = coordinates.longitude,
+            cause = cause
+        ))
     }
 
     fun getPhotoFlow(): Flow<List<PhotoItem>> {
-        return localDataSource.observeAll().map { photos ->
+        return photoDataSource.observeAllTimeDesc().map { photos ->
             withContext(dispatcher) {
                 photos.map { PhotoItem(it) }
             }

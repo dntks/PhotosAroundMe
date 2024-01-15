@@ -1,7 +1,8 @@
 package com.dtks.photosaroundme.data
 
 import com.dtks.photosaroundme.data.api.FlickrApi
-import com.dtks.photosaroundme.data.model.SearchResponse
+import com.dtks.photosaroundme.data.apimodel.SearchResponse
+import com.dtks.photosaroundme.utils.Coordinates
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(

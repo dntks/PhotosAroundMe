@@ -1,4 +1,4 @@
-package com.dtks.photosaroundme.data.model
+package com.dtks.photosaroundme.data.apimodel
 
 data class SearchResponse(
     val photos: Photos,

@@ -1,4 +1,4 @@
-package com.dtks.photosaroundme.data.model
+package com.dtks.photosaroundme.data.apimodel
 
 data class Photos(
     val page: Int,

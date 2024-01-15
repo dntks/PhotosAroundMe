@@ -38,7 +38,7 @@ object DatabaseModule {
         return Room.databaseBuilder(
             context.applicationContext,
             PhotoDatabase::class.java,
-            "Tasks.db"
+            "Photos.db"
         ).build()
     }
 

@@ -7,4 +7,5 @@ import androidx.room.RoomDatabase
 abstract class PhotoDatabase : RoomDatabase() {
 
     abstract fun photoDao(): PhotoDao
+    abstract fun failedPhotoDao(): FailedPhotoDao
 }

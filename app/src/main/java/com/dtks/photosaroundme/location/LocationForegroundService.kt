@@ -17,9 +17,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import com.dtks.photosaroundme.MainActivity
 import com.dtks.photosaroundme.R
-import com.dtks.photosaroundme.data.Coordinates
-import com.dtks.photosaroundme.data.model.SearchRequest
+import com.dtks.photosaroundme.data.apimodel.SearchRequest
 import com.dtks.photosaroundme.data.repository.PhotoRepository
+import com.dtks.photosaroundme.utils.Coordinates
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -121,21 +121,22 @@ class LocationForegroundService : Service() {
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val location = locationResult.lastLocation
-            // Send location to the server here
-            Log.e("Location", location.toString())
             location?.let {
                 scope.launch {
+                    val coordinates = Coordinates(
+                        location.latitude,
+                        location.longitude
+                    )
                     photoRepository.firstPhotoResponseFlow(
                         SearchRequest(
-                            coordinates = Coordinates(
-                                location.latitude,
-                                location.longitude
-                            )
+                            coordinates = coordinates
                         )
                     ).catch {
-                        Log.e("ERROR", it.cause?.toString() ?: "")
-                    }
-                        .onEach { photoItem ->
+                        val cause = it.cause?.toString() ?: ""
+                        Log.e("ERROR", cause)
+                        // saving failed coordinates for troubleshoot
+                        photoRepository.saveFailedPhoto(coordinates, cause)
+                    }.onEach { photoItem ->
                             photoItem?.let {
                                 photoRepository.savePhoto(it)
                             }

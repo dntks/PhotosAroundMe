@@ -18,8 +18,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.SubcomposeAsyncImage
 import com.dtks.photosaroundme.R
-import com.dtks.photosaroundme.data.Coordinates
 import com.dtks.photosaroundme.ui.loading.ImageLoading
+import com.dtks.photosaroundme.utils.Coordinates
 import java.text.SimpleDateFormat
 import java.util.Date
 

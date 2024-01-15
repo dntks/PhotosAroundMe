@@ -1,6 +1,6 @@
 package com.dtks.photosaroundme.data.api
 
-import com.dtks.photosaroundme.data.model.SearchResponse
+import com.dtks.photosaroundme.data.apimodel.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -2,8 +2,8 @@ package com.dtks.photosaroundme.ui.overview
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dtks.photosaroundme.data.Coordinates
 import com.dtks.photosaroundme.data.repository.PhotoRepository
+import com.dtks.photosaroundme.utils.Coordinates
 import com.dtks.photosaroundme.utils.WhileUiSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

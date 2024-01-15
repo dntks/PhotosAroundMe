@@ -1,4 +1,4 @@
-package com.dtks.photosaroundme.data
+package com.dtks.photosaroundme.utils
 
 data class Coordinates(
     val latitude: Double,

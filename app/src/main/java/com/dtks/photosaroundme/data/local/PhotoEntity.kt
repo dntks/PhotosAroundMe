@@ -26,5 +26,4 @@ data class PhotoEntity(
         photo.coordinates.latitude,
         photo.coordinates.longitude
     )
-
 }
